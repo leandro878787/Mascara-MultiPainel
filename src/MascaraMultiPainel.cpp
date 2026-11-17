@@ -75,10 +75,10 @@ MascaraMultiPainel::MascaraMultiPainel()
 {
     SetMinInputs(1);
     SetMaxInputs(1);
-    SetParamInfof(PT_MODE, "Modo");
-    SetParamInfof(PT_PANELS, "Quantidade de paineis");
-    SetParamInfof(PT_GAP, "Espaco entre paineis");
-    SetParamInfof(PT_SHAPE, "Formato");
+    SetParamInfof(PT_MODE, "Modo", FF_TYPE_STANDARD);
+    SetParamInfof(PT_PANELS, "Quantidade de paineis", FF_TYPE_STANDARD);
+    SetParamInfof(PT_GAP, "Espaco entre paineis", FF_TYPE_STANDARD);
+    SetParamInfof(PT_SHAPE, "Formato", FF_TYPE_STANDARD);
 }
 
 FFResult MascaraMultiPainel::InitGL(const FFGLViewportStruct* vp)
@@ -128,8 +128,8 @@ FFResult MascaraMultiPainel::SetFloatParameter(unsigned int index, float value)
     switch (index)
     {
     case PT_MODE: mode = value < 0.5f ? 0.0f : 1.0f; break;
-    case PT_PANELS: panels = std::clamp(value, 1.0f, 16.0f); break;
-    case PT_GAP: gap = std::clamp(value, 0.0f, 0.45f); break;
+    case PT_PANELS: panels = (value < 1.0f) ? 1.0f : ((value > 16.0f) ? 16.0f : value); break;
+    case PT_GAP: gap = (value < 0.0f) ? 0.0f : ((value > 0.45f) ? 0.45f : value); break;
     case PT_SHAPE: shape = value < 0.5f ? 0.0f : 1.0f; break;
     default: return FF_FAIL;
     }
