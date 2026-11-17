@@ -17,7 +17,7 @@ static CFFGLPluginInfo PluginInfo(
     0, 1,
     FF_EFFECT,
     "Divide a imagem em painéis com modo contínuo ou duplicado.",
-    "Máscara MultiPainel"
+    "Desenvolvido por @leandrone_x | Instagram: @leandrone_x"
 );
 
 static const char vertexShader[] = R"(#version 410 core
