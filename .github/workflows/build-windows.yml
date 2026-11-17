@@ -1,0 +1,49 @@
+name: Compilar DLL FFGL
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "src/**"
+      - ".github/workflows/build-windows.yml"
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Baixar o projeto
+        uses: actions/checkout@v4
+
+      - name: Preparar Visual Studio
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x64
+
+      - name: Baixar SDK oficial FFGL
+        shell: pwsh
+        run: git clone --depth 1 --recurse-submodules https://github.com/Resolume/ffgl.git external/ffgl
+
+      - name: Inserir os fontes do plugin no projeto FFGL
+        shell: pwsh
+        run: |
+          Copy-Item "src/MascaraMultiPainel.cpp" "external/ffgl/source/plugins/AddSubtract/AddSubtract.cpp" -Force
+          Copy-Item "src/MascaraMultiPainel.h" "external/ffgl/source/plugins/AddSubtract/AddSubtract.h" -Force
+
+      - name: Compilar DLL 64-bit
+        shell: pwsh
+        run: |
+          msbuild "external/ffgl/build/windows/AddSubtract.vcxproj" /m /p:Configuration=Release /p:Platform=x64 /p:WindowsTargetPlatformVersion=10.0
+
+      - name: Preparar artefato
+        shell: pwsh
+        run: |
+          $dll = "external/ffgl/binaries/x64/Release/AddSubtract.dll"
+          if (!(Test-Path $dll)) { throw "A DLL não foi encontrada em $dll" }
+          New-Item -ItemType Directory -Force -Path "dist" | Out-Null
+          Copy-Item $dll "dist/MascaraMultiPainel.dll" -Force
+
+      - name: Publicar DLL compilada
+        uses: actions/upload-artifact@v4
+        with:
+          name: Mascara-MultiPainel-Windows-x64
+          path: dist/MascaraMultiPainel.dll
