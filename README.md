@@ -1,5 +1,8 @@
 # Máscara MultiPainel
 
+**by @leandrone_x**  
+Instagram: https://www.instagram.com/leandrone_x/
+
 Plugin de efeito FFGL para Resolume Arena 7.22 (Windows 10/11, 64-bit).
 
 ## Estado do projeto
@@ -26,6 +29,10 @@ Copie MascaraMultiPainel.dll para:
 %USERPROFILE%\Documents\Resolume\Extra Effects
 
 Depois reinicie o Resolume Arena. A DLL só deve ser considerada pronta após confirmar que aparece e funciona no Arena.
+
+## Identidade e licenciamento
+
+A identidade do plugin usa a assinatura **by @leandrone_x**. O plano de licença comercial prevê uma ativação por computador, com validação online. A arquitetura está documentada em [docs/IDENTIDADE-E-LICENCIAMENTO.md](docs/IDENTIDADE-E-LICENCIAMENTO.md); o sistema ainda não foi implementado.
 
 ## Próximas etapas
 
