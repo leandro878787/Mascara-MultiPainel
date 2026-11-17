@@ -27,6 +27,7 @@ jobs:
         shell: pwsh
         run: |
           Copy-Item "src/MascaraMultiPainel.cpp" "external/ffgl/source/plugins/AddSubtract/AddSubtract.cpp" -Force
+          Copy-Item "src/MascaraMultiPainel.h" "external/ffgl/source/plugins/AddSubtract/MascaraMultiPainel.h" -Force
           Copy-Item "src/MascaraMultiPainel.h" "external/ffgl/source/plugins/AddSubtract/AddSubtract.h" -Force
 
       - name: Compilar DLL 64-bit
