@@ -19,4 +19,7 @@ private:
     float panels;
     float gap;
     float shape;
+    float globalSize;
+    float panelWidth[16];
+    float panelHeight[16];
 };
