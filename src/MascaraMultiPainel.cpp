@@ -1,6 +1,11 @@
 #include "MascaraMultiPainel.h"
 #include <string>
 #include <cstdio>
+
+static float ClampValue(float value, float minimum, float maximum)
+{
+    return value < minimum ? minimum : (value > maximum ? maximum : value);
+}
 using namespace ffglex;
 
 enum ParamType : FFUInt32
@@ -214,12 +219,12 @@ FFResult MascaraMultiPainel::SetFloatParameter(unsigned int index, float value)
     case PT_PANELS: panels = (value < 1.0f) ? 1.0f : ((value > 16.0f) ? 16.0f : value); break;
     case PT_GAP: gap = (value < 0.0f) ? 0.0f : ((value > 0.45f) ? 0.45f : value); break;
     case PT_SHAPE: shape = value < 0.5f ? 0.0f : 1.0f; break;
-    case PT_GLOBAL_SIZE: globalSize = std::clamp(value, 0.25f, 1.5f); break;
+    case PT_GLOBAL_SIZE: globalSize = ClampValue(value, 0.25f, 1.5f); break;
     default:
         if (index >= PT_PANEL_WIDTH_BASE && index < PT_PANEL_HEIGHT_BASE)
-            panelWidth[index - PT_PANEL_WIDTH_BASE] = std::clamp(value, 0.25f, 2.0f);
+            panelWidth[index - PT_PANEL_WIDTH_BASE] = ClampValue(value, 0.25f, 2.0f);
         else if (index >= PT_PANEL_HEIGHT_BASE && index < PT_PARAM_COUNT)
-            panelHeight[index - PT_PANEL_HEIGHT_BASE] = std::clamp(value, 0.25f, 2.0f);
+            panelHeight[index - PT_PANEL_HEIGHT_BASE] = ClampValue(value, 0.25f, 2.0f);
         else
             return FF_FAIL;
         break;
