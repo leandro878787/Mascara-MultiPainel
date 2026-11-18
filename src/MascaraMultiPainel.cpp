@@ -1,5 +1,6 @@
 #include "MascaraMultiPainel.h"
 #include <string>
+#include <cstdio>
 using namespace ffglex;
 
 enum ParamType : FFUInt32
@@ -130,6 +131,11 @@ MascaraMultiPainel::MascaraMultiPainel()
     SetParamInfof(PT_GAP, "Espacamento", FF_TYPE_STANDARD);
     SetParamInfof(PT_SHAPE, "Formato", FF_TYPE_STANDARD);
     SetParamInfof(PT_GLOBAL_SIZE, "Tamanho geral", FF_TYPE_STANDARD);
+    SetParamRange(PT_MODE, 0.0f, 1.0f);
+    SetParamRange(PT_PANELS, 1.0f, 16.0f);
+    SetParamRange(PT_GAP, 0.0f, 0.45f);
+    SetParamRange(PT_SHAPE, 0.0f, 1.0f);
+    SetParamRange(PT_GLOBAL_SIZE, 0.25f, 1.5f);
 
     for (int i = 0; i < 16; ++i)
     {
@@ -139,6 +145,12 @@ MascaraMultiPainel::MascaraMultiPainel()
         std::snprintf(heightName, sizeof(heightName), "Altura P%02d", i + 1);
         SetParamInfof(PT_PANEL_WIDTH_BASE + i, widthName, FF_TYPE_STANDARD);
         SetParamInfof(PT_PANEL_HEIGHT_BASE + i, heightName, FF_TYPE_STANDARD);
+        SetParamRange(PT_PANEL_WIDTH_BASE + i, 0.25f, 2.0f);
+        SetParamRange(PT_PANEL_HEIGHT_BASE + i, 0.25f, 2.0f);
+        char groupName[17];
+        std::snprintf(groupName, sizeof(groupName), "Painel %02d", i + 1);
+        SetParamGroup(PT_PANEL_WIDTH_BASE + i, groupName);
+        SetParamGroup(PT_PANEL_HEIGHT_BASE + i, groupName);
     }
 }
 
